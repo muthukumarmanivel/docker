@@ -1,4 +1,9 @@
-FROM ubuntu:18.04
-COPY . /app
-RUN make /app
-CMD python /app/app.py
+FROM ubuntu:20.04
+
+RUN apt-get update && apt-get install -y python3 python3-pip
+
+RUN pip install flask 
+
+COPY app.py /opt/
+
+ENTRYPOINT FLASK_APP=/opt/app.py flask run --host=0.0.0.0 --port=8080
